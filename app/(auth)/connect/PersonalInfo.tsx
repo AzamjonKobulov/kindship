@@ -18,29 +18,37 @@ const FullName = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const storedValues = JSON.parse(
-      localStorage.getItem('fullNameInputs') as string
-    );
-    if (storedValues) {
-      setLastName(storedValues.lastName);
-      setNumber(storedValues.number);
-      setDate(storedValues.date);
+    if (typeof window !== 'undefined') {
+      const storedValues = JSON.parse(
+        localStorage.getItem('fullNameInputs') || '{}'
+      );
+      setLastName(storedValues.lastName || '');
+      setNumber(storedValues.number || '');
+      setDate(storedValues.date || '');
     }
 
     return () => {
-      localStorage.removeItem('fullNameInputs');
+      if (
+        typeof window !== 'undefined' &&
+        router?.pathname &&
+        !router.pathname.includes('/connect/agreement')
+      ) {
+        localStorage.removeItem('fullNameInputs');
+      }
     };
-  }, []);
+  }, [router?.pathname]);
 
   useEffect(() => {
     formValidity();
   }, [lastName, number, date]);
 
   useEffect(() => {
-    localStorage.setItem(
-      'fullNameInputs',
-      JSON.stringify({ lastName, number, date })
-    );
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(
+        'fullNameInputs',
+        JSON.stringify({ lastName, number, date })
+      );
+    }
   }, [lastName, number, date]);
 
   const formValidity = () => {
@@ -68,13 +76,11 @@ const FullName = () => {
     setDate(e.target.value);
   };
 
-  // Reset LastName Input
   const resetLastNameInput = () => {
     setLastName('');
     inputRef.current?.focus();
   };
 
-  // Reset Number Input
   const resetNumberInput = () => {
     setNumber('');
     setShowError(false);
@@ -130,6 +136,7 @@ const FullName = () => {
         <input
           id="ndis-number"
           type="text"
+          maxLength={9}
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={number}
           placeholder=" "
