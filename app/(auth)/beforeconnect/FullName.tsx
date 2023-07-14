@@ -40,11 +40,11 @@ const FullName = () => {
   return (
     <>
       <div className="relative flex items-center text-body border-b space-x-2 border-brand-gray-300">
-        <label htmlFor="phone-number" className="flex items-center pr-2">
+        <label htmlFor="first-name" className="flex items-center pr-2">
           First Name
         </label>
         <input
-          id="first-number"
+          id="first-name"
           type="text"
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={firstName}
@@ -60,11 +60,11 @@ const FullName = () => {
         </button>
       </div>
       <div className="relative flex items-center text-body border-b  space-x-2 border-brand-gray-300">
-        <label htmlFor="phone-number" className="flex items-center pr-2">
+        <label htmlFor="last-name" className="flex items-center pr-2">
           Last Name
         </label>
         <input
-          id="first-number"
+          id="last-name"
           type="text"
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={lastName}

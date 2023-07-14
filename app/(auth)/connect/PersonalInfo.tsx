@@ -67,7 +67,7 @@ const FullName = () => {
   return (
     <>
       <div className="relative flex items-center text-body border-b  space-x-2 border-brand-gray-300">
-        <label htmlFor="phone-number" className="flex items-center pr-2">
+        <label htmlFor="last-name" className="flex items-center pr-2">
           Last Name
         </label>
         <input
@@ -87,11 +87,11 @@ const FullName = () => {
         </button>
       </div>
       <div className="relative flex items-center text-body border-b  space-x-2 border-brand-gray-300">
-        <label htmlFor="phone-number" className="flex items-center pr-2">
+        <label htmlFor="date-of-birth" className="flex items-center pr-2">
           Date of birth
         </label>
         <input
-          id="dateofbirth"
+          id="date-of-birth"
           type="date"
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={date}
@@ -103,7 +103,7 @@ const FullName = () => {
           showError ? 'border-brand-warning-red' : 'border-brand-gray-300'
         }`}
       >
-        <label htmlFor="phone-number" className="flex items-center pr-2">
+        <label htmlFor="ndis-number" className="flex items-center pr-2">
           NDIS number
         </label>
         <input

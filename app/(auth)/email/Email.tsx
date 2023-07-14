@@ -36,11 +36,11 @@ const FullName = () => {
           validEmail ? 'border-brand-warning-red' : 'border-brand-gray-300'
         }`}
       >
-        <label htmlFor="phone-number" className="flex items-center pr-2">
+        <label htmlFor="email" className="flex items-center pr-2">
           Email
         </label>
         <input
-          id="first-number"
+          id="email"
           type="email"
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={email}
