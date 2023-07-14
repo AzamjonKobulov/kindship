@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
@@ -11,6 +11,7 @@ const FullName = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [validEmail, setValidEmail] = useState<boolean>(false);
 
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +28,10 @@ const FullName = () => {
     setEmail('');
     inputRef.current?.focus();
     setDisabled(true);
+  };
+
+  const navigateNextPage = () => {
+    router.push('/tariff');
   };
 
   return (
@@ -60,11 +65,13 @@ const FullName = () => {
           Oops, that doesn't look right. Please try again
         </p>
       )}
-      <Link href="/tariff">
-        <Button disabled={disabled} className="mt-5 md:mt-7">
-          Next
-        </Button>
-      </Link>
+      <Button
+        onClick={navigateNextPage}
+        disabled={disabled}
+        className="mt-5 md:mt-7"
+      >
+        Next
+      </Button>
     </>
   );
 };

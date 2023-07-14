@@ -7,8 +7,8 @@ const Agreement = () => {
   return (
     <>
       <Link
-        href="/connect/agreement"
-        className="inline-flex lg:hidden items-center text-brand-primary space-x-1.5"
+        href="/connect"
+        className="inline-flex items-center text-brand-primary space-x-1.5 mb-5"
       >
         <Arrowleft />
         <span className="text-[17px] leading-5">Back</span>

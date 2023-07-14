@@ -1,16 +1,17 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
-import Link from 'next/link';
 
 const FullName = () => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
 
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +35,10 @@ const FullName = () => {
   const resetLastNameInput = () => {
     setLastName('');
     inputRef.current?.focus();
+  };
+
+  const navigateNextPage = () => {
+    router.push('/connect');
   };
 
   return (
@@ -82,11 +87,13 @@ const FullName = () => {
         Last name is optional
       </p>
 
-      <Link href="/connect">
-        <Button disabled={disabled} className="mt-5 md:mt-7">
-          Next
-        </Button>
-      </Link>
+      <Button
+        onClick={navigateNextPage}
+        disabled={disabled}
+        className="mt-5 md:mt-7"
+      >
+        Next
+      </Button>
     </>
   );
 };

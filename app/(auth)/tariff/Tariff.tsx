@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 import { Button } from '@/app/components/Base';
 import { CheckIcon } from '@heroicons/react/20/solid';
 
@@ -21,6 +22,8 @@ const data: CheckboxItem[] = [
 const FullName = () => {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
 
+  const router = useRouter();
+
   const handleCheckboxChange = (itemId: number) => {
     if (checkedItems.includes(itemId)) {
       setCheckedItems((prevItems) =>
@@ -32,6 +35,10 @@ const FullName = () => {
   };
 
   const isCheckboxChecked = (itemId: number) => checkedItems.includes(itemId);
+
+  const navigateNextPage = () => {
+    router.push('/premium');
+  };
 
   return (
     <>
@@ -57,11 +64,13 @@ const FullName = () => {
           </label>
         ))}
       </div>
-      <Link href="/premium">
-        <Button disabled={checkedItems.length === 0} className="mt-5 md:mt-7">
-          Next
-        </Button>
-      </Link>
+      <Button
+        onClick={navigateNextPage}
+        disabled={checkedItems.length === 0}
+        className="mt-5 md:mt-7"
+      >
+        Next
+      </Button>
     </>
   );
 };

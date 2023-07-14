@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
@@ -14,9 +15,30 @@ const FullName = () => {
   const [showError, setShowError] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedValues = JSON.parse(localStorage.getItem('fullNameInputs'));
+    if (storedValues) {
+      setLastName(storedValues.lastName);
+      setNumber(storedValues.number);
+      setDate(storedValues.date);
+    }
+
+    return () => {
+      localStorage.removeItem('fullNameInputs');
+    };
+  }, []);
 
   useEffect(() => {
     formValidity();
+  }, [lastName, number, date]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      'fullNameInputs',
+      JSON.stringify({ lastName, number, date })
+    );
   }, [lastName, number, date]);
 
   const formValidity = () => {
@@ -57,10 +79,8 @@ const FullName = () => {
     inputRef.current?.focus();
   };
 
-  const handleButtonClick = () => {
-    if (disabled) {
-      return;
-    }
+  const navigateNextPage = () => {
+    router.push('/email');
   };
 
   return (
@@ -130,15 +150,13 @@ const FullName = () => {
         Your child's NDIS number (this should be 9 digits). You'll be able to
         add more children later.
       </p>
-      <Link href="/email">
-        <Button
-          disabled={disabled}
-          onClick={handleButtonClick}
-          className="mt-5 md:mt-7"
-        >
-          Agree and continue
-        </Button>
-      </Link>
+      <Button
+        disabled={disabled}
+        onClick={navigateNextPage}
+        className="mt-5 md:mt-7"
+      >
+        Agree and continue
+      </Button>
 
       <div className="text-center">
         <p className="mt-5 tracking-tight font-sf-pro-display">
