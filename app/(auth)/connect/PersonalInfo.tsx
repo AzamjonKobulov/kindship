@@ -32,7 +32,7 @@ const FullName = () => {
       if (
         typeof window !== 'undefined' &&
         pathname &&
-        !pathname.includes('/connect/agreement')
+        pathname.includes('/connect/agreement')
       ) {
         localStorage.removeItem('fullNameInputs');
       }
