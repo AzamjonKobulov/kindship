@@ -32,8 +32,12 @@ const FullName = () => {
   };
 
   const onNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNumber(e.target.value);
-    setShowError(e.target.value.length !== 9);
+    const inputNumber = e.target.value.replace(/\D/g, '');
+    const formattedNumber = inputNumber.slice(0, 9);
+    setNumber(formattedNumber);
+    setShowError(
+      inputNumber.length > 0 && formattedNumber.length !== inputNumber.length
+    );
   };
 
   const onDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,15 +57,10 @@ const FullName = () => {
     inputRef.current?.focus();
   };
 
-  console.log(disabled);
-
   const handleButtonClick = () => {
     if (disabled) {
-      // Button is disabled, do nothing
       return;
     }
-    // Handle button click logic here
-    // ...
   };
 
   return (
