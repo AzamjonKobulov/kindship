@@ -1,12 +1,16 @@
 'use client';
+
 import { CheckIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const VerfyNumber = ({ phoneNumber }: any) => {
   const [value, setValue] = useState<string>('');
   const [correct, setCorrect] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [resendTimer, setResendTimer] = useState<number>(10);
+
+  const router = useRouter();
 
   const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const code = e.target.value;
@@ -17,6 +21,7 @@ const VerfyNumber = ({ phoneNumber }: any) => {
       if (code === '777777') {
         setCorrect(true);
         setError(false);
+        router.push('/beforeconnect');
       } else {
         setCorrect(false);
         setError(true);
