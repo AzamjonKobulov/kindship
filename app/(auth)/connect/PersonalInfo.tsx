@@ -7,12 +7,17 @@ import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
 
 const FullName = () => {
-  const [lastName, setLastName] = useState<string>('');
-  const [number, setNumber] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [lastName, setLastName] = useState('');
+  const [number, setNumber] = useState('');
+  const [date, setDate] = useState('');
+  const [disabled, setDisabled] = useState(true);
+  const [showError, setShowError] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    formValidity();
+  }, [lastName, number, date]);
 
   const formValidity = () => {
     if (lastName.trim() !== '' && number.length === 9 && date.length > 0) {
@@ -24,17 +29,15 @@ const FullName = () => {
 
   const onLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value);
-    formValidity();
   };
 
   const onNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumber(e.target.value);
-    formValidity();
+    setShowError(e.target.value.length !== 9);
   };
 
   const onDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
-    formValidity();
   };
 
   // Reset LastName Input
@@ -46,17 +49,20 @@ const FullName = () => {
   // Reset Number Input
   const resetNumberInput = () => {
     setNumber('');
+    setShowError(false);
     inputRef.current?.focus();
   };
 
-  // Reset Date Input
-  // const resetDateInput = () => {
-  //   setDate('');
-  //   inputRef.current?.focus();
-  //   setDisabled(true);
-  // };
-
   console.log(disabled);
+
+  const handleButtonClick = () => {
+    if (disabled) {
+      // Button is disabled, do nothing
+      return;
+    }
+    // Handle button click logic here
+    // ...
+  };
 
   return (
     <>
@@ -91,15 +97,12 @@ const FullName = () => {
           value={date}
           onChange={onDateChange}
         />
-        {/* <button
-            type="button"
-            onClick={resetDateInput}
-            className="peer-focus:block peer-placeholder-shown:hidden"
-          >
-            <XCircleIcon className="w-5 h-5 text-brand-gray-primary absolute right-0 top-1/2 -translate-y-1/2" />
-          </button> */}
       </div>
-      <div className="relative flex items-center text-body border-b  space-x-2 border-brand-gray-300">
+      <div
+        className={`relative flex items-center text-body border-b  space-x-2 ${
+          showError ? 'border-brand-warning-red' : 'border-brand-gray-300'
+        }`}
+      >
         <label htmlFor="phone-number" className="flex items-center pr-2">
           NDIS number
         </label>
@@ -119,17 +122,21 @@ const FullName = () => {
           <XCircleIcon className="w-5 h-5 text-brand-gray-primary absolute right-0 top-1/2 -translate-y-1/2" />
         </button>
       </div>
-      <p className="text-brand-gray-primary tracking-tight my-2">
-        Your child's NDIS number (this should be 9 digits). You'll be able to
-        add more children later.
-      </p>
-      {number.length !== 9 && (
+      {showError && (
         <p className="text-sm text-brand-warning-red my-2">
           Oops, that doesn't look right. Please try again
         </p>
       )}
+      <p className="text-brand-gray-primary tracking-tight my-2">
+        Your child's NDIS number (this should be 9 digits). You'll be able to
+        add more children later.
+      </p>
       <Link href="/email">
-        <Button disabled={disabled} className="mt-5 md:mt-7">
+        <Button
+          disabled={disabled}
+          onClick={handleButtonClick}
+          className="mt-5 md:mt-7"
+        >
           Agree and continue
         </Button>
       </Link>

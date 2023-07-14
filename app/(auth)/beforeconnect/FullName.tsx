@@ -38,7 +38,7 @@ const FullName = () => {
 
   return (
     <>
-      <div className="relative flex items-center text-body border-b  space-x-2 border-brand-gray-300">
+      <div className="relative flex items-center text-body border-b space-x-2 border-brand-gray-300">
         <label htmlFor="phone-number" className="flex items-center pr-2">
           First Name
         </label>
