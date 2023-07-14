@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Arrowleft } from '@/app/components/Icons';
-import Email from '@/app/(auth)/email/Email';
+import Tariff from '@/app/(auth)/tariff/Tariff';
 
 const Connect = () => {
   return (
@@ -22,7 +22,7 @@ const Connect = () => {
         </p>
       </div>
       <div className="max-w-md mx-auto md:px-6 mt-8">
-        <Email />
+        <Tariff />
       </div>
     </>
   );
