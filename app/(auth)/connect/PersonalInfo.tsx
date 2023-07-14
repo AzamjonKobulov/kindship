@@ -18,7 +18,9 @@ const FullName = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const storedValues = JSON.parse(localStorage.getItem('fullNameInputs'));
+    const storedValues = JSON.parse(
+      localStorage.getItem('fullNameInputs') as string
+    );
     if (storedValues) {
       setLastName(storedValues.lastName);
       setNumber(storedValues.number);
