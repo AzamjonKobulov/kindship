@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 
 import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link';
 
 const FullName = () => {
   const [firstName, setFirstName] = useState<string>('');
@@ -82,9 +83,11 @@ const FullName = () => {
         Last name is optional
       </p>
 
-      <Button disabled={disabled} className="mt-5 md:mt-7">
-        Next
-      </Button>
+      <Link href="/connect">
+        <Button disabled={disabled} className="mt-5 md:mt-7">
+          Next
+        </Button>
+      </Link>
     </>
   );
 };

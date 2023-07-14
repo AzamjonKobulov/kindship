@@ -1,9 +1,9 @@
-"use client";
-import { CheckIcon, XCircleIcon } from "@heroicons/react/20/solid";
-import React, { useEffect, useState } from "react";
+'use client';
+import { CheckIcon, XCircleIcon } from '@heroicons/react/20/solid';
+import React, { useEffect, useState } from 'react';
 
 const VerfyNumber = ({ phoneNumber }: any) => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   const [correct, setCorrect] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [resendTimer, setResendTimer] = useState<number>(10);
@@ -14,7 +14,7 @@ const VerfyNumber = ({ phoneNumber }: any) => {
     // JUST for UI checking
     // Will be refactored while intergrating api
     if (code.length === 6) {
-      if (code === "777777") {
+      if (code === '777777') {
         setCorrect(true);
         setError(false);
       } else {
@@ -30,7 +30,7 @@ const VerfyNumber = ({ phoneNumber }: any) => {
 
   // Reset Input
   const resetInput = () => {
-    setValue("");
+    setValue('');
     setCorrect(false);
     setError(false);
   };
@@ -52,45 +52,47 @@ const VerfyNumber = ({ phoneNumber }: any) => {
   return (
     <>
       <label
-        htmlFor='verify-code'
+        htmlFor="verify-code"
         className={`relative flex items-center cursor-text border-b ${
-          false ? "border-brand-warning-red" : "border-brand-gray-300"
-        }`}>
+          false ? 'border-brand-warning-red' : 'border-brand-gray-300'
+        }`}
+      >
         <input
-          id='verify-code'
-          type='text'
+          id="verify-code"
+          type="text"
           maxLength={6}
-          className={`${value ? "w-20" : "w-24"} text-body py-2.5`}
-          placeholder='Enter code'
+          className={`${value ? 'w-20' : 'w-24'} text-body py-2.5`}
+          placeholder="Enter code"
           onChange={handleOnchange}
           value={value}
         />
-        {correct && <CheckIcon className='w-4 h-5 shrink-0 text-brand-hover' />}
+        {correct && <CheckIcon className="w-4 h-5 shrink-0 text-brand-hover" />}
 
         {value.length > 0 && (
           <button
             onClick={resetInput}
-            type='button'
-            className='absolute top-1/2 right-0 -translate-y-1/2 ml-auto'>
-            <XCircleIcon className='w-5 h-5 text-brand-gray-primary' />
+            type="button"
+            className="absolute top-1/2 right-0 -translate-y-1/2 ml-auto"
+          >
+            <XCircleIcon className="w-5 h-5 text-brand-gray-primary" />
           </button>
         )}
       </label>
 
-      <div className='mt-3'>
-        <div className='text-[#3C3C43]/60'>
-          <p className='inline-block'>Didn't receive a code?</p>
-          {"  "}
+      <div className="mt-3">
+        <div className="text-[#3C3C43]/60">
+          <p className="inline-block">Didn't receive a code?</p>
+          {'  '}
           {resendTimer > 0 ? (
             `Resend in ${resendTimer}s`
           ) : (
-            <button type='button' className='text-brand-primary'>
+            <button type="button" className="text-brand-primary">
               Resend
             </button>
           )}
         </div>
         {error && (
-          <p className='text-sm text-brand-warning-red my-1'>
+          <p className="text-sm text-brand-warning-red my-1">
             Oops, that doesn't look right. Please try again
           </p>
         )}
