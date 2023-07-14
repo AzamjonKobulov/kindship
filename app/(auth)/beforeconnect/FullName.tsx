@@ -14,10 +14,9 @@ const FullName = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstName(e.target.value);
-    if (firstName.length > 0) {
-      setDisabled(false);
-    }
+    const newFirstName = e.target.value.trim();
+    setFirstName(newFirstName);
+    setDisabled(newFirstName === '');
   };
 
   const onLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

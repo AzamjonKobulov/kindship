@@ -19,7 +19,7 @@ const Button: React.FC<iButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`w-full rounded-base py-3.5 ${
+      className={`w-full rounded-base py-3.5 disabled: ${
         disabled
           ? 'bg-brand-gray-400 pointer-events-none'
           : 'bg-brand-primary lg:hover:bg-brand-hover'
