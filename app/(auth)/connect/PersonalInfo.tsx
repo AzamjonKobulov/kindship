@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
@@ -16,6 +16,7 @@ const FullName = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -30,13 +31,13 @@ const FullName = () => {
     return () => {
       if (
         typeof window !== 'undefined' &&
-        router?.pathname &&
-        !router.pathname.includes('/connect/agreement')
+        pathname &&
+        !pathname.includes('/connect/agreement')
       ) {
         localStorage.removeItem('fullNameInputs');
       }
     };
-  }, [router?.pathname]);
+  }, [pathname]);
 
   useEffect(() => {
     formValidity();
