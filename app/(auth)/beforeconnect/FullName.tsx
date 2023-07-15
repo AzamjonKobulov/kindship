@@ -14,14 +14,16 @@ const FullName = () => {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFirstName = e.target.value.trim();
-    setFirstName(newFirstName);
-    setDisabled(newFirstName === '');
-  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
-  const onLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(e.target.value);
+    if (name === 'first-name') {
+      const newFirstName = value.trim();
+      setFirstName(newFirstName);
+      setDisabled(newFirstName === '');
+    } else if (name === 'last-name') {
+      setLastName(value);
+    }
   };
 
   // Reset FirstName Input
@@ -49,10 +51,11 @@ const FullName = () => {
         </label>
         <input
           id="first-name"
+          name="first-name"
           type="text"
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={firstName}
-          onChange={onFirstNameChange}
+          onChange={handleInputChange}
           placeholder=" "
         />
         <button
@@ -69,11 +72,12 @@ const FullName = () => {
         </label>
         <input
           id="last-name"
+          name="last-name"
           type="text"
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={lastName}
           placeholder=" "
-          onChange={onLastNameChange}
+          onChange={handleInputChange}
         />
         <button
           type="button"
