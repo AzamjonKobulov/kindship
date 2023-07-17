@@ -135,7 +135,7 @@ const Premium = () => {
             <h2 className="font-sf-pro-display font-bold text-2xl lg:text-3xl leading-8 tracking-wide mt-3">
               Let's tackle your NDIS plan together!
             </h2>
-            <p className="text-brand-gray-primary text-lg: lg:text-xl leading-6 tracking-tight whitespace-pre-line mt-2.5 lg:mt-3.5 md:px-2">
+            <p className="text-black/60 text-lg: lg:text-xl leading-6 tracking-tight whitespace-pre-line mt-2.5 lg:mt-3.5 md:px-2">
               Got questions or concerns? <br /> Chat with a Kindship Coach
               today!
             </p>
