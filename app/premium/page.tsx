@@ -108,7 +108,7 @@ const Premium = () => {
                 <Image
                   width={60}
                   height={60}
-                  src="/assets/images/coach-1.svg"
+                  src="/assets/images/coach-1.png"
                   alt="Coach Image"
                   className="absolute bottom-0"
                 />
@@ -117,7 +117,7 @@ const Premium = () => {
                 <Image
                   width={60}
                   height={60}
-                  src="/assets/images/coach-2.svg"
+                  src="/assets/images/coach-2.png"
                   alt="Coach Image"
                   className="absolute bottom-0"
                 />
@@ -126,7 +126,7 @@ const Premium = () => {
                 <Image
                   width={60}
                   height={60}
-                  src="/assets/images/coach-3.svg"
+                  src="/assets/images/coach-3.png"
                   alt="Coach Image"
                   className="absolute bottom-0"
                 />
