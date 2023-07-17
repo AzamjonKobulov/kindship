@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import ButtonWithIcon from '../components/Base/ButtonWithIcon';
+
 const Premium = () => {
   return (
     <div>
@@ -139,7 +141,7 @@ const Premium = () => {
               Got questions or concerns? <br /> Chat with a Kindship Coach
               today!
             </p>
-            <button className="max-w-[22.5rem] w-full mx-auto rounded-base flex items-center justify-center space-x-2 text-white text-lg lg:text-xl font-semibold py-2.5 lg:py-3.5 bg-brand-primary lg:hover:bg-brand-hover mt-5">
+            <ButtonWithIcon>
               <span>Open support</span>
               <svg
                 width="14"
@@ -153,7 +155,7 @@ const Premium = () => {
                   fill="white"
                 />
               </svg>
-            </button>
+            </ButtonWithIcon>
           </div>
         </div>
       </div>
