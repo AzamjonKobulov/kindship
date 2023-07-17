@@ -104,7 +104,7 @@ const Premium = () => {
         <div className="col-span-2 rounded-4xl bg-[#FBF0EB] px-10 py-7 lg:px-14">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-1">
-              <div className="relative w-[3.75rem] h-[3.75rem] rounded-full overflow-hidden bg-[#EED6CB]">
+              <div className="relative w-[3.75rem] h-[3.75rem] rounded-full overflow-hidden bg-brand-bg-avatar">
                 <Image
                   width={60}
                   height={60}
@@ -113,7 +113,7 @@ const Premium = () => {
                   className="absolute bottom-0"
                 />
               </div>
-              <div className="relative w-[3.75rem] h-[3.75rem] rounded-full overflow-hidden bg-[#EED6CB]">
+              <div className="relative w-[3.75rem] h-[3.75rem] rounded-full overflow-hidden bg-brand-bg-avatar">
                 <Image
                   width={60}
                   height={60}
@@ -122,7 +122,7 @@ const Premium = () => {
                   className="absolute bottom-0"
                 />
               </div>
-              <div className="relative w-[3.75rem] h-[3.75rem] rounded-full overflow-hidden bg-[#EED6CB]">
+              <div className="relative w-[3.75rem] h-[3.75rem] rounded-full overflow-hidden bg-brand-bg-avatar">
                 <Image
                   width={60}
                   height={60}

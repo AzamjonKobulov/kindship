@@ -23,6 +23,7 @@ module.exports = {
             600: '#9B9B9B',
           },
           bg: '#FBF4EF',
+          'bg-avatar': '#EED6CB',
         },
       },
       spacing: {
