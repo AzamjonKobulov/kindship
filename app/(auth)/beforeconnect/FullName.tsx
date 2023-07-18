@@ -47,7 +47,7 @@ const FullName = () => {
   useEffect(() => {
     const handleResize = () => {
       const { innerHeight } = window;
-      const formBottom = inputRef.current.getBoundingClientRect().bottom;
+      const formBottom = inputRef.current!.getBoundingClientRect().bottom;
       setFormOffset(innerHeight - formBottom);
     };
 
