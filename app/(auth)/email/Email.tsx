@@ -1,43 +1,52 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
 
 const FullName = () => {
-  const [email, setEmail] = useState<string>('');
-  const [disabled, setDisabled] = useState<boolean>(true);
-  const [validEmail, setValidEmail] = useState<boolean>(false);
+  const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+  const [isTyping, setIsTyping] = useState(true);
 
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
-    const isValidEmail = newEmail === 'correct@gmail.com';
 
+    setIsTyping(newEmail.length === 0);
     setEmail(newEmail);
-    setValidEmail(!isValidEmail || newEmail.length === 0);
-    setDisabled(!isValidEmail || newEmail.length === 0);
   };
 
   // Reset Email Input
   const resetEmailInput = () => {
     setEmail('');
+    setIsTyping(false);
+    setValidEmail(false);
     inputRef.current?.focus();
-    setDisabled(true);
   };
 
   const navigateNextPage = () => {
-    router.push('/tariff');
+    if (email !== 'correct@gmail.com') {
+      setValidEmail(true);
+    } else {
+      router.push('/tariff');
+    }
   };
+
+  useEffect(() => {
+    if (validEmail && email.length === 0) {
+      setValidEmail(false);
+    }
+  }, [email, validEmail]);
 
   return (
     <>
       <div
-        className={`relative flex items-center text-body border-b  space-x-2 ${
+        className={`relative flex items-center text-body border-b space-x-2 ${
           validEmail ? 'border-brand-warning-red' : 'border-brand-gray-300'
         }`}
       >
@@ -52,22 +61,24 @@ const FullName = () => {
           placeholder="What’s your email?"
           onChange={onEmailChange}
         />
-        <button
-          type="button"
-          onClick={resetEmailInput}
-          className="peer-focus:block peer-placeholder-shown:hidden"
-        >
-          <XCircleIcon className="w-5 h-5 text-brand-gray-primary absolute right-0 top-1/2 -translate-y-1/2" />
-        </button>
+        {email.length > 0 && (
+          <button
+            type="button"
+            onClick={resetEmailInput}
+            className="peer-focus:block peer-placeholder-shown:hidden"
+          >
+            <XCircleIcon className="w-5 h-5 text-brand-gray-primary absolute right-0 top-1/2 -translate-y-1/2" />
+          </button>
+        )}
       </div>
       {validEmail && (
         <p className="text-sm text-brand-warning-red my-2">
-          Oops, that doesn't look right. Please try again
+          Oops, that doesn't look right. Please try again.
         </p>
       )}
       <Button
         onClick={navigateNextPage}
-        disabled={disabled}
+        disabled={isTyping}
         className="mt-5 md:mt-7"
       >
         Next
