@@ -13,7 +13,7 @@ const FullName = () => {
   const [date, setDate] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -54,15 +54,16 @@ const FullName = () => {
   }, [lastName, number, date]);
 
   useEffect(() => {
+    const handleResize = () => {
+      setKeyboardOpen(window.innerHeight < window.outerHeight);
+    };
+
     window.addEventListener('resize', handleResize);
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  const handleResize = () => {
-    setKeyboardVisible(window.innerHeight < window.outerHeight);
-  };
 
   const formValidity = () => {
     if (lastName.trim() !== '' && number.length === 9 && date.length > 0) {
@@ -172,15 +173,16 @@ const FullName = () => {
         Your child's NDIS number (this should be 9 digits). You'll be able to
         add more children later.
       </p>
-      <Button
-        disabled={disabled}
-        onClick={navigateNextPage}
-        className={`mt-5 md:mt-7 ${
-          keyboardVisible ? 'fixed bottom-0 inset-x-0' : ''
-        }`}
-      >
-        Agree and continue
-      </Button>
+      {keyboardOpen && <div style={{ height: '60px' }} />}
+      {!keyboardOpen && (
+        <Button
+          disabled={disabled}
+          onClick={navigateNextPage}
+          className="mt-5 md:mt-7"
+        >
+          Agree and continue
+        </Button>
+      )}
 
       <div className="text-center">
         <p className="mt-5 tracking-tight font-sf-pro-display">
