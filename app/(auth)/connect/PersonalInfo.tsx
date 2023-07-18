@@ -13,6 +13,7 @@ const FullName = () => {
   const [date, setDate] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -51,6 +52,17 @@ const FullName = () => {
       );
     }
   }, [lastName, number, date]);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleResize = () => {
+    setKeyboardVisible(window.innerHeight < window.outerHeight);
+  };
 
   const formValidity = () => {
     if (lastName.trim() !== '' && number.length === 9 && date.length > 0) {
@@ -163,7 +175,9 @@ const FullName = () => {
       <Button
         disabled={disabled}
         onClick={navigateNextPage}
-        className="mt-5 md:mt-7"
+        className={`mt-5 md:mt-7 ${
+          keyboardVisible ? 'fixed bottom-0 inset-x-0' : ''
+        }`}
       >
         Agree and continue
       </Button>

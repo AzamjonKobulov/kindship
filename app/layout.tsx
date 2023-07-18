@@ -1,11 +1,8 @@
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-
-import { Poppins } from 'next/font/google';
-import '@/public/fonts/fonts-local.css';
 import './styles/globals.css';
-
+import '@/public/fonts/fonts-local.css';
+import { Poppins } from 'next/font/google';
 import Sidebar from './components/Sidebar';
+import Link from 'next/link';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -24,49 +21,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleFocus = (event: FocusEvent) => {
-      const target = event.target as HTMLElement;
-      switch (target.tagName) {
-        case 'INPUT':
-        case 'TEXTAREA':
-        case 'SELECT':
-          setIsKeyboardOpen(true);
-          break;
-        default:
-          break;
-      }
-    };
-
-    const handleBlur = () => {
-      setIsKeyboardOpen(false);
-    };
-
-    document.body.addEventListener('focus', handleFocus, true);
-    document.body.addEventListener('blur', handleBlur, true);
-
-    return () => {
-      document.body.removeEventListener('focus', handleFocus, true);
-      document.body.removeEventListener('blur', handleBlur, true);
-    };
-  }, []);
-
   return (
     <html lang="en" className={`${poppins.variable} h-full`}>
       <body className="font-sf-pro-text bg-brand-bg h-full">
         <main className="h-screen md:h-auto max-w-4xl xl:max-w-5xl mx-auto lg:flex items-start lg:space-x-10 xl:space-x-14 md:px-4 md:pt-14 pb-10">
           <Sidebar />
-          <div className="relative max-h-max flex-1 bg-white md:border border-brand-gray-divider shadow-base-container md:rounded-xl overflow-hidden px-4 py-5 md:p-10">
+          <div className="relative flex-1 bg-white md:border border-brand-gray-divider shadow-base-container md:rounded-xl overflow-hidden px-4 py-5 md:p-10">
             {children}
           </div>
         </main>
-        <footer
-          className={`w-56 md:hidden font-poppins text-sm px-4 py-7 ${
-            isKeyboardOpen ? 'keyboard' : ''
-          }`}
-        >
+        <footer className="w-56 md:hidden font-poppins text-sm px-4 py-7">
           <p>© 2023 Kindship</p>
           <div className="flex flex-wrap items-center text-brand-gray-500 gap-x-2 gap-y-1 mt-4">
             <Link
