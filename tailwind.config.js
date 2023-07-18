@@ -21,6 +21,7 @@ module.exports = {
             400: '#F2F2F7',
             500: '#767678',
             600: '#9B9B9B',
+            700: '#AEAEB2',
           },
           bg: '#FBF4EF',
           'bg-avatar': '#EED6CB',

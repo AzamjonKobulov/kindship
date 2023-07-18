@@ -58,7 +58,7 @@ const Premium = () => {
           </span>
           <div>
             <h4 className="font-bold text-xl">Payment Provider</h4>
-            <p className="text-brand-gray-300 text-lg lg:text-xl mt-1">
+            <p className="text-brand-gray-700 text-lg lg:text-xl mt-1">
               Coming soon
             </p>
           </div>
@@ -98,7 +98,7 @@ const Premium = () => {
           </span>
           <div>
             <h4 className="font-bold text-xl">Personalised templates</h4>
-            <p className="text-brand-gray-300 text-lg lg:text-xl mt-1">
+            <p className="text-brand-gray-700 text-lg lg:text-xl mt-1">
               Coming soon
             </p>
           </div>
