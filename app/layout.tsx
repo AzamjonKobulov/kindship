@@ -1,8 +1,11 @@
-import './styles/globals.css';
-import '@/public/fonts/fonts-local.css';
-import { Poppins } from 'next/font/google';
-import Sidebar from './components/Sidebar';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import { Poppins } from 'next/font/google';
+import '@/public/fonts/fonts-local.css';
+import './styles/globals.css';
+
+import Sidebar from './components/Sidebar';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -21,11 +24,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleFocus = (event) => {
-      const target = event.target;
+    const handleFocus = (event: FocusEvent) => {
+      const target = event.target as HTMLElement;
       switch (target.tagName) {
         case 'INPUT':
         case 'TEXTAREA':
