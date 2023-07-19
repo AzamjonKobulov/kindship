@@ -10,10 +10,63 @@ const FullName = () => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
-  const [formOffset, setFormOffset] = useState<number>(0);
+  const [yOffset, setYOffset] = useState<number>(0);
 
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleInputFocus = () => {
+      // Check if the first name or last name input is focused and scroll the page if necessary
+      if (
+        firstNameRef.current &&
+        document.activeElement === firstNameRef.current
+      ) {
+        scrollToRef(firstNameRef);
+      } else if (
+        lastNameRef.current &&
+        document.activeElement === lastNameRef.current
+      ) {
+        scrollToRef(lastNameRef);
+      }
+    };
+
+    const handleResize = () => {
+      const newInnerHeight = window.innerHeight;
+      const keyboardHeight = newInnerHeight - window.outerHeight;
+
+      setYOffset(keyboardHeight > 0 ? keyboardHeight + 16 : 0);
+    };
+
+    window.addEventListener('resize', handleInputFocus);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleInputFocus);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const scrollToRef = (ref: React.RefObject<HTMLInputElement>) => {
+    if (ref.current) {
+      const y =
+        ref.current.getBoundingClientRect().top + window.pageYOffset - yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  const handleFirstNameBlur = () => {
+    if (firstNameRef.current && !firstNameRef.current.value.trim()) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleLastNameBlur = () => {
+    if (lastNameRef.current && !lastNameRef.current.value.trim()) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,30 +97,9 @@ const FullName = () => {
     router.push('/connect');
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      const { innerHeight } = window;
-      const formBottom = inputRef.current!.getBoundingClientRect().bottom;
-      setFormOffset(innerHeight - formBottom);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial calculation
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const isMobile: boolean = window.innerWidth <= 768;
-
   return (
     <>
-      <div
-        className={`relative flex items-center text-body border-b space-x-2 border-brand-gray-300 ${
-          isMobile ? 'mb-5' : ''
-        }`}
-      >
+      <div className="relative flex items-center text-body border-b space-x-2 border-brand-gray-300">
         <label htmlFor="first-name" className="flex items-center pr-2">
           First Name
         </label>
@@ -79,7 +111,8 @@ const FullName = () => {
           value={firstName}
           onChange={handleInputChange}
           placeholder=" "
-          ref={inputRef}
+          onBlur={handleFirstNameBlur}
+          ref={firstNameRef}
         />
         <button
           type="button"
@@ -89,11 +122,7 @@ const FullName = () => {
           <XCircleIcon className="w-5 h-5 text-brand-gray-primary absolute right-0 top-1/2 -translate-y-1/2" />
         </button>
       </div>
-      <div
-        className={`relative flex items-center text-body border-b space-x-2 border-brand-gray-300 ${
-          isMobile ? 'mb-5' : ''
-        }`}
-      >
+      <div className="relative flex items-center text-body border-b  space-x-2 border-brand-gray-300">
         <label htmlFor="last-name" className="flex items-center pr-2">
           Last Name
         </label>
@@ -105,6 +134,8 @@ const FullName = () => {
           value={lastName}
           placeholder=" "
           onChange={handleInputChange}
+          onBlur={handleLastNameBlur}
+          ref={lastNameRef}
         />
         <button
           type="button"
@@ -118,15 +149,13 @@ const FullName = () => {
         Last name is optional
       </p>
 
-      <div style={{ marginBottom: isMobile ? `${formOffset}px` : 0 }}>
-        <Button
-          onClick={navigateNextPage}
-          disabled={disabled}
-          className="mt-5 md:mt-7"
-        >
-          Next
-        </Button>
-      </div>
+      <Button
+        onClick={navigateNextPage}
+        disabled={disabled}
+        className="mt-5 md:mt-7"
+      >
+        Next
+      </Button>
     </>
   );
 };
