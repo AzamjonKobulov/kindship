@@ -19,7 +19,6 @@ const FullName = () => {
 
   useEffect(() => {
     const handleInputFocus = () => {
-      // Check if the first name or last name input is focused and scroll the page if necessary
       if (
         firstNameRef.current &&
         document.activeElement === firstNameRef.current
