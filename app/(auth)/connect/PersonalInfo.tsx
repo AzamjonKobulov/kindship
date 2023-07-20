@@ -13,10 +13,64 @@ const FullName = () => {
   const [date, setDate] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [showError, setShowError] = useState(false);
+  const [yOffset, setYOffset] = useState<number>(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const ndisRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleInputFocus = () => {
+      // Check if the first name or last name input is focused and scroll the page if necessary
+      if (
+        lastNameRef.current &&
+        document.activeElement === lastNameRef.current
+      ) {
+        scrollToRef(lastNameRef);
+      } else if (
+        ndisRef.current &&
+        document.activeElement === ndisRef.current
+      ) {
+        scrollToRef(ndisRef);
+      }
+    };
+
+    const handleResize = () => {
+      const newInnerHeight = window.innerHeight;
+      const keyboardHeight = newInnerHeight - window.outerHeight;
+
+      setYOffset(keyboardHeight > 0 ? keyboardHeight + 16 : 0);
+    };
+
+    window.addEventListener('resize', handleInputFocus);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleInputFocus);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const scrollToRef = (ref: React.RefObject<HTMLInputElement>) => {
+    if (ref.current) {
+      const y =
+        ref.current.getBoundingClientRect().top + window.pageYOffset - yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  const handleLastNameBlur = () => {
+    if (lastNameRef.current && !lastNameRef.current.value.trim()) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleNdisBlur = () => {
+    if (ndisRef.current && !ndisRef.current.value.trim()) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -94,17 +148,19 @@ const FullName = () => {
 
   return (
     <>
-      <div className="relative flex items-center text-body border-b  space-x-2 border-brand-gray-300">
+      <div className="relative max-h-max overflow-auto flex items-center text-body border-b  space-x-2 border-brand-gray-300">
         <label htmlFor="last-name" className="flex items-center pr-2">
           Last Name
         </label>
         <input
           id="last-name"
+          ref={lastNameRef}
           type="text"
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={lastName}
           placeholder=" "
           onChange={onLastNameChange}
+          onBlur={handleLastNameBlur}
         />
         <button
           type="button"
@@ -137,11 +193,13 @@ const FullName = () => {
         <input
           id="ndis-number"
           type="text"
+          ref={ndisRef}
           maxLength={9}
           className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
           value={number}
           placeholder=" "
           onChange={onNumberChange}
+          onBlur={handleNdisBlur}
         />
         <button
           type="button"

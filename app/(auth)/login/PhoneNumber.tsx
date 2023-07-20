@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@/app/components/Base';
 import { XCircleIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
