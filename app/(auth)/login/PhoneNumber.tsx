@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Button } from '@/app/components/Base';
-import { XCircleIcon } from '@heroicons/react/20/solid';
-import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import { Button } from "@/app/components/Base";
+import { XCircleIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
+import React, { useRef, useState } from "react";
 
 const PhoneNumber = ({ phoneNumber, setPhoneNumber, setVerify }: any) => {
   const [error, setError] = useState<boolean>(false);
@@ -32,7 +32,7 @@ const PhoneNumber = ({ phoneNumber, setPhoneNumber, setVerify }: any) => {
       setError(false);
     }
 
-    setPhoneNumber(value.replace(/[^0-9]/g, ''));
+    setPhoneNumber(value.replace(/[^0-9]/g, ""));
   };
 
   // OnSubmit
@@ -42,7 +42,7 @@ const PhoneNumber = ({ phoneNumber, setPhoneNumber, setVerify }: any) => {
 
   // Reset Input
   const resetInput = () => {
-    setPhoneNumber('');
+    setPhoneNumber("");
     inputRef.current?.focus();
     setError(false);
     setDisabled(true);
@@ -52,42 +52,38 @@ const PhoneNumber = ({ phoneNumber, setPhoneNumber, setVerify }: any) => {
     <>
       <div
         className={`relative flex items-center text-body border-b  space-x-2 ${
-          error ? 'border-brand-warning-red' : 'border-brand-gray-300'
-        }`}
-      >
-        <label htmlFor="phone-number" className="flex items-center space-x-2">
+          error ? "border-brand-warning-red" : "border-brand-gray-300"
+        }`}>
+        <label htmlFor='phone-number' className='flex items-center space-x-2'>
           <Image
             width={28}
             height={28}
-            src="/assets/images/flag.png"
-            alt="Australia Flag"
+            src='/assets/images/flag.png'
+            alt='Australia Flag'
           />
-          <span className="w-14 shrink-0">+61</span>
+          <span className='w-14 shrink-0'>+61</span>
         </label>
         {/* Input */}
         <input
           ref={inputRef}
-          id="phone-number"
-          type="text"
+          id='phone-number'
+          type='text'
           maxLength={10}
-          className="w-full flex-1 caret-[#446BF2] py-2.5 peer"
-          placeholder="Mobile number"
+          className='w-full flex-1 caret-[#446BF2] py-2.5 peer'
+          placeholder='Mobile number'
           value={phoneNumber}
           onChange={onChangeInput}
         />
         {/* Remove Btn */}
-        {/* {phoneNumber.length > 0 && ( */}
         <button
-          type="button"
+          type='button'
           onClick={resetInput}
-          className="peer-focus:block peer-placeholder-shown:hidden"
-        >
-          <XCircleIcon className="w-5 h-5 text-brand-gray-primary absolute right-0 top-1/2 -translate-y-1/2" />
+          className='peer-focus:block peer-placeholder-shown:hidden'>
+          <XCircleIcon className='w-5 h-5 text-brand-gray-primary absolute right-0 top-1/2 -translate-y-1/2' />
         </button>
-        {/*  )} */}
       </div>
       {error && (
-        <p className="text-sm text-brand-warning-red my-2">
+        <p className='text-sm text-brand-warning-red my-2'>
           Oops, that doesn't look right. Please try again
         </p>
       )}
@@ -95,8 +91,7 @@ const PhoneNumber = ({ phoneNumber, setPhoneNumber, setVerify }: any) => {
       <Button
         onClick={verifyPhoneNumber}
         disabled={disabled}
-        className="mt-5 md:mt-7"
-      >
+        className='mt-5 md:mt-7'>
         Next
       </Button>
     </>
